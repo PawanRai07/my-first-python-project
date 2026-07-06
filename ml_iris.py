@@ -26,3 +26,38 @@ score = accuracy_score(y_test, predictions)
 
 print("--- Training Complete! ---")
 print(f"Your AI achieved an accuracy score of: {score * 100:.2f}%")
+print("\n=============================================")
+print("🤖 Interactive AI Flower Predictor Engine 🤖")
+print("=============================================")
+
+# Names of the flowers our AI knows (a List!)
+flower_species = ["Setosa 🌸", "Versicolor 🌻", "Virginica 🌺"]
+
+while True:
+    print("\nEnter the measurements of a mystery flower to test the AI:")
+    user_input = input("Type 4 numbers separated by commas (e.g., 1.2, 2.4, 0.6, 0.2) or 'quit': ")
+    
+    if user_input.lower() == 'quit':
+        print("Shutting down the AI Engine. Goodbye!")
+        break
+        
+    try:
+        # 1. Break the user's text into 4 separate decimal numbers
+        measurements = [float(x.strip()) for x in user_input.split(",")]
+        
+        if len(measurements) != 4:
+            print("❌ Error: You must enter exactly 4 measurements!")
+            continue
+            
+        # 2. Feed the measurements into your trained AI model
+        # (Assuming your model variable is named 'model' or 'clf')
+        # We wrap the data in a list [measurements] because the AI expects a 2D array
+        prediction_numeric = ai_model.predict([measurements])[0]
+        
+        # 3. Look up the flower name using the numeric index the AI gave us
+        predicted_flower = flower_species[prediction_numeric]
+        
+        print(f"🔮 AI PREDICTION: This flower is a {predicted_flower}")
+        
+    except Exception as e:
+        print("❌ Invalid format. Please make sure to enter only numbers separated by commas!")
