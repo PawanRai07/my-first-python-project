@@ -1,32 +1,46 @@
 import random
 
-print("=== Rock, Paper, Scissors Game ===")
+print("=== Upgraded Rock, Paper, Scissors (Best of 3) ===")
 
-# A List of available choices (ordered slots)
 choices = ["rock", "paper", "scissors"]
 
-while True:
-    # 1. Get player input
-    player_choice = input("\nEnter rock, paper, or scissors (or 'quit' to exit): ").lower()
+# 1. Variables to hold the scores (No quotes, because they are numbers!)
+player_score = 0
+computer_score = 0
+
+# 2. The Loop keeps running until someone hits 3 points
+while player_score < 3 and computer_score < 3:
+    print(f"\n--- SCOREBOARD | You: {player_score} | Computer: {computer_score} ---")
+    
+    player_choice = input("Enter rock, paper, or scissors (or 'quit'): ").lower()
     
     if player_choice == "quit":
-        print("Thanks for playing! Goodbye.")
+        print("Quitting game...")
         break
         
     if player_choice not in choices:
-        print("Invalid choice. Try again!")
+        print("❌ Invalid choice. Try again!")
         continue
         
-    # 2. Let the computer choose randomly from our list
     computer_choice = random.choice(choices)
     print(f"Computer chose: {computer_choice}")
     
-    # 3. Game Logic (Comparing choices)
+    # 3. Game Logic & Score Updating
     if player_choice == computer_choice:
-        print("It's a tie!")
+        print("It's a tie for this round!")
     elif (player_choice == "rock" and computer_choice == "scissors") or \
          (player_choice == "paper" and computer_choice == "rock") or \
          (player_choice == "scissors" and computer_choice == "paper"):
-        print("You are a winner, pawan! 🎉")
+        print("You win this round! 🎉")
+        player_score += 1  # Adds 1 point to your score
     else:
-        print("The machine is winning! 🤖")
+        print("Computer wins this round! 🤖")
+        computer_score += 1  # Adds 1 point to computer's score
+
+# 4. Out of the loop! Check who won the tournament
+print("\n===============================")
+if player_score == 3:
+    print("🏆 CONGRATULATIONS! You are the WINNER! 🏆")
+elif computer_score == 3:
+    print("🤖 GAME OVER! The machine won the Tournament. Better luck next time!")
+print("===============================")
